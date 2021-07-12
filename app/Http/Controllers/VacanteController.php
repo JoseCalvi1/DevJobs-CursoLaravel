@@ -7,6 +7,7 @@ use App\Models\Experiencia;
 use App\Models\Salario;
 use App\Models\Ubicacion;
 use App\Models\Vacante;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class VacanteController extends Controller
@@ -102,4 +103,29 @@ class VacanteController extends Controller
     {
         //
     }
+
+    // Campos extras
+    public function imagen(Request $request)
+    {
+        $imagen = $request->file('file');
+        $nombreImagen = time() . '.' . $imagen->extension();
+        $imagen->move(public_path('storage/vacantes'), $nombreImagen );
+
+        return response()->json(['correcto' => $nombreImagen]);
+    }
+
+    // Borrar imagen via Ajax
+    public function borrarimagen(Request $request)
+    {
+        if($request->ajax()) {
+            $imagen = $request->get('imagen');
+
+            if( File::exists( 'storage/vacantes/' . $imagen ) ) {
+                File::delete( 'storage/vacantes/' . $imagen );
+            }
+
+            return response('Imagen Eliminada', 200);
+        }
+    }
+
 }

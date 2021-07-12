@@ -2,6 +2,7 @@
 
 @section('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.min.css" integrity="sha512-zYqhQjtcNMt8/h4RJallhYRev/et7+k/HDyry20li5fWSJYSExP9O07Ung28MUuXDneIFg0f2/U3HJZWsTNAiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
 @section('navegacion')
@@ -78,6 +79,14 @@
             <input type="hidden" name="descripcion" id="descripcion">
         </div>
 
+        <div class="mb-5">
+            <label for="descripcion" class="block text-gray-700 text-sm mb-2">Imagen vacante: </label>
+            <div id="dropzoneDevJobs" class="dropzone rounded bg-white"></div>
+            <input type="hidden" name="imagen" id="imagen">
+
+            <p id="error"></p>
+        </div>
+
         <button type="submit" class="bg-blue-500 w-full hover:bg-blue-600 text-gray-100 font-bold p-3 focus:outline focus:shadow-outline uppercase">Publicar vacante</button>
     </form>
 
@@ -85,8 +94,12 @@
 
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js" integrity="sha512-VQQXLthlZQO00P+uEu4mJ4G4OAgqTtKG1hri56kQY1DtdLeIqhKUp9W/lllDDu3uN3SnUNawpW7lBda8+dSi7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        Dropzone.autoDiscover = false;
         document.addEventListener('DOMContentLoaded', () => {
+
+            // Medium editor
             const editor = new MediumEditor('.editable', {
                 toolbar: {
                     buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedList', 'unorderedList', 'h2', 'h3'],
@@ -101,6 +114,45 @@
             editor.subscribe('editableInput', function(eventObj, editable) {
                 const contenido = editor.getContent();
                 document.querySelector('#descripcion').value = contenido;
+            });
+
+            // Dropzone
+            const dropzoneDevJobs = new Dropzone('#dropzoneDevJobs', {
+                url: "/vacantes/imagen",
+                dictDefaultMessage: 'Sube aquí tú archivo',
+                acceptedFiles: ".png,.jpg,.jpeg,.gif,.bmp",
+                addRemoveLinks: true,
+                maxFiles: 1,
+                dictRemoveFile: "Borrar archivo",
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+                },
+                success: function(file, response) {
+                    console.log(response.correcto);
+                    document.querySelector('#error').textContent = '';
+
+                    // Coloca la respuesta del servidor en el input hidden
+                    document.querySelector('#imagen').value = response.correcto;
+
+                    // Añadir al objeto de archivo el nombre del servidor
+                    file.nombreServidor = response.correcto;
+                },
+                maxfilesexceeded: function(file) {
+                    if( this.files[1] != null ) {
+                        this.removeFile(this.files[0]); // eliminar el archivo anterior
+                        this.addFile(file); // Agregar el nuevo archivo
+                    }
+                },
+                removedfile: function(file, response) {
+                    file.previewElement.parentNode.removeChild(file.previewElement);
+
+                    params = {
+                        imagen: file.nombreServidor ?? document.querySelector('#imagen').value
+                    }
+
+                    axios.post('/vacantes/borrarimagen', params )
+                        .then(respuesta => console.log(respuesta))
+                }
             });
         })
     </script>
