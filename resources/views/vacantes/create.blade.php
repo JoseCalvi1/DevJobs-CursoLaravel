@@ -13,12 +13,19 @@
 
     <h1 class="text-2xl text-center mt-10">Nueva vacante</h1>
 
-    <form action="" class="max-w-lg mx-auto my-10">
+    <form action="{{ route('vacantes.store') }}" method="POST" class="max-w-lg mx-auto my-10">
+        @csrf
         <div class="mb-5">
             <label for="titulo" class="block text-gray-700 text-sm mb-2">Titulo vacante: </label>
 
             <input id="titulo" type="text" class="p-3 bg-white rounded form-input w-full @error('titulo') border-red-500 border @enderror"
-            name="titulo" value="{{ old('titulo') }}" autofocus>
+            name="titulo" value="{{ old('titulo') }}" placeholder="Título de la vacante" value="{{ old('titulo') }}" autofocus>
+            @error('titulo')
+                <div class="bg-red-400 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
         </div>
 
         <div class="mb-5">
@@ -77,6 +84,18 @@
             <label for="descripcion" class="block text-gray-700 text-sm mb-2">Descripción del puesto: </label>
             <div class="editable p-3 bg-white rounded form-input w-full text-gray-700"></div>
             <input type="hidden" name="descripcion" id="descripcion">
+        </div>
+
+        <div class="mb-5">
+            <label for="skills" class="block text-gray-700 text-sm mb-2">Habilidades / Conocimientos: </label>
+
+            @php
+                $skills = ['HTML5', 'CSS3', 'CSSGrid', 'Flexbox', 'JavaScript', 'jQuery', 'Node', 'Angular', 'VueJS', 'ReactJS', 'React Hooks', 'Redux', 'Apollo', 'GraphQL', 'TypeScript', 'PHP', 'Laravel', 'Symfony', 'Python', 'Django', 'ORM', 'Sequelize', 'Mongoose', 'SQL', 'MVC', 'SASS', 'WordPress', 'Express', 'Deno', 'React Native', 'Flutter', 'MobX', 'C#', 'Ruby on Rails']
+            @endphp
+
+            <lista-skills :skills="{{ json_encode($skills) }}">
+            </lista-skills>
+            <p id="error"></p>
         </div>
 
         <div class="mb-5">
