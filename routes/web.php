@@ -31,9 +31,13 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     // Subir imágenes
     Route::post('/vacantes/imagen', [App\Http\Controllers\VacanteController::class, 'imagen'])->name('vacantes.imagen');
     Route::post('/vacantes/borrarimagen', [App\Http\Controllers\VacanteController::class, 'borrarimagen'])->name('vacantes.borrar');
+
+    // Notificaciones
+    Route::get('notificaciones', 'App\Http\Controllers\NotificacionesController')->name('notificaciones');
 });
 
 // Enviar candidato
+Route::get('/candidatos/{id}', [App\Http\Controllers\CandidatoController::class, 'index'])->name('candidatos.index');
 Route::post('/candidatos/store', [App\Http\Controllers\CandidatoController::class, 'store'])->name('candidatos.store');
 
 // Rutas de vacantes
