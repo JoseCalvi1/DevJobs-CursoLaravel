@@ -24,7 +24,7 @@
 <body class="bg-gray-200 min-h-screen leading-none">
 
         @if (session('estado'))
-            <div class="bg-blue-400 p-8 text-center text-white font-bold uppercase">{{ session('estado') }}</div>
+            <div class="bg-green-400 p-8 text-center text-white font-bold uppercase">{{ session('estado') }}</div>
         @endif
 
     <div id="app">
@@ -48,7 +48,7 @@
                              <span class="text-gray-300 text-sm pr-4">{{ Auth::user()->name }}</span>
 
 
-                             <a href="{{ route('notificaciones') }}" class="bg-blue-500 rounded-full mr-2 px-3 py-1 font-bold text-sm text-white">{{ Auth::user()->unreadNotifications->count() }}</a>
+                             <a href="{{ route('notificaciones') }}" class="bg-green-500 rounded-full mr-2 px-3 py-1 font-bold text-sm text-white">{{ Auth::user()->unreadNotifications->count() }}</a>
 
                                 <a class="no-underline hover:underline text-gray-300 text-sm pr-3" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
@@ -66,7 +66,7 @@
         </nav>
 
         <div class="bg-gray-700">
-            <nav class="container mx-auto flex space-x-1">
+            <nav class="container mx-auto flex flex-col text-center md:flex-row space-x-1">
                 @yield('navegacion')
             </nav>
         </div>

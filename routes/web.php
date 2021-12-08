@@ -14,13 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Rutas protegidas
 Route::group(['middleware' => ['auth', 'verified']], function() {
@@ -43,12 +38,17 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::get('notificaciones', 'App\Http\Controllers\NotificacionesController')->name('notificaciones');
 });
 
+// Página de inicio
+Route::get('/', 'App\Http\Controllers\InicioController')->name('inicio');
+
+// Categorías
+Route::get('/categorias/{categoria}', [App\Http\Controllers\CategoriaController::class, 'show'])->name('categorias.show');
+
 // Enviar candidato
 Route::get('/candidatos/{id}', [App\Http\Controllers\CandidatoController::class, 'index'])->name('candidatos.index');
 Route::post('/candidatos/store', [App\Http\Controllers\CandidatoController::class, 'store'])->name('candidatos.store');
 
 // Rutas de vacantes
+Route::get('/busqueda/buscar', [App\Http\Controllers\VacanteController::class, 'resultados'])->name('vacantes.resultados');
+Route::post('/busqueda/buscar', [App\Http\Controllers\VacanteController::class, 'buscar'])->name('vacantes.buscar');
 Route::get('/vacantes/{vacante}', [App\Http\Controllers\VacanteController::class, 'show'])->name('vacantes.show');
-
-
-

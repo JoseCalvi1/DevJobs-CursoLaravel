@@ -2014,11 +2014,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   methods: {
     activar: function activar(e) {
-      if (e.target.classList.contains('bg-blue-400')) {
-        e.target.classList.remove('bg-blue-400');
+      if (e.target.classList.contains('bg-green-400')) {
+        e.target.classList.remove('bg-green-400');
         this.habilidades["delete"](e.target.textContent);
       } else {
-        e.target.classList.add('bg-blue-400');
+        e.target.classList.add('bg-green-400');
         this.habilidades.add(e.target.textContent);
       } // Agregar habilidades a input hidden
 
@@ -2028,7 +2028,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       document.querySelector('#skills').value = stringHabilidades;
     },
     verificarClaseActiva: function verificarClaseActiva(skill) {
-      return this.habilidades.has(skill) ? 'bg-blue-400' : '';
+      return this.habilidades.has(skill) ? 'bg-green-400' : '';
     }
   }
 });

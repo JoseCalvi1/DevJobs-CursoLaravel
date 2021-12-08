@@ -1,4 +1,4 @@
-<aside class="md:w-2/5 bg-blue-400 p-5 m-3 rounded">
+<aside class="md:w-2/5 bg-green-400 p-5 m-3 rounded">
     <h2 class="text-2xl my-5 text-white uppercase font-bold text-center">Contacta al reclutador</h2>
 
     <form enctype="multipart/form-data" action="{{ route('candidatos.store') }}" method="POST">
@@ -60,7 +60,7 @@
         </div>
 
         <input type="submit"
-                class="bg-blue-500 w-full hover:bg-blue-600 text-gray-100 p-3 focus:outline-none focus:shadow-outline uppercase mt-2"
+                class="bg-green-500 w-full hover:bg-green-600 text-gray-100 p-3 focus:outline-none focus:shadow-outline uppercase mt-2"
                 value="Contactar">
 
     </form>

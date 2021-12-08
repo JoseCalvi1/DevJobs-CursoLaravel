@@ -18,7 +18,7 @@
                     <p class="mb-4">
                         Email: <span class="font-bold">{{ $candidato->email }}</span>
                     </p>
-                    <a class="bg-blue-400 p-3 inline-block text-xs font-bold uppercase text-white" href="/storage/cv/{{ $candidato->cv }}">Ver CV</a>
+                    <a class="bg-green-400 p-3 inline-block text-xs font-bold uppercase text-white" href="/storage/cv/{{ $candidato->cv }}">Ver CV</a>
                 </li>
 
             @endforeach

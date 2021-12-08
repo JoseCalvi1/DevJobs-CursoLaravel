@@ -20,7 +20,7 @@
                     <p class="mb-4">Te escribió: <span class="font-bold">{{ $notificacion->created_at->diffForHumans() }}</span></p>
 
                     <a
-                        class="bg-blue-400 p-3 inline-block text-xs font-bold uppercase text-white mb-4"
+                        class="bg-green-400 p-3 inline-block text-xs font-bold uppercase text-white mb-4"
                         href="{{ route('candidatos.index', ['id' => $data['id_vacante']]) }}">Ver candidatos</a>
                 </li>
 

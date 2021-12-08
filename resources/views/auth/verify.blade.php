@@ -13,7 +13,7 @@
         <p class="mt-5">{{ __('If you did not receive the email') }}</p>
         <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
             @csrf
-            <button type="submit" class="bg-blue-500 w-full hover:bg-blue-700 text-gray-100 p-3 focus:outline-none focus_shadow-outline uppercase font-bold mb-2 mt-10 max-w-sm">{{ __('click here to request another') }}</button>
+            <button type="submit" class="bg-green-500 w-full hover:bg-green-700 text-gray-100 p-3 focus:outline-none focus_shadow-outline uppercase font-bold mb-2 mt-10 max-w-sm">{{ __('click here to request another') }}</button>
         </form>
 </div>
 @endsection

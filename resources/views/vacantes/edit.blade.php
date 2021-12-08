@@ -159,7 +159,7 @@
             <p id="error"></p>
         </div>
 
-        <button type="submit" class="bg-blue-500 w-full hover:bg-blue-600 text-gray-100 font-bold p-3 focus:outline focus:shadow-outline uppercase">Editar vacante</button>
+        <button type="submit" class="bg-green-500 w-full hover:bg-green-600 text-gray-100 font-bold p-3 focus:outline focus:shadow-outline uppercase">Editar vacante</button>
     </form>
 
 @endsection

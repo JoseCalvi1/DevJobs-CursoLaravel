@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="flex flex-wrap">
-                                    <button type="submit" class="bg-blue-500 w-full hover:bg-blue-700 text-gray-100 p-3 focus:outline-none focus_shadow-outline uppercase font-bold mb-2">
+                                    <button type="submit" class="bg-green-500 w-full hover:bg-green-700 text-gray-100 p-3 focus:outline-none focus_shadow-outline uppercase font-bold mb-2">
                                         {{ __('Register') }}
                                     </button>
                             </div>
@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="md:w-1/2 order-1 md:order-1 text-center flex flex-col justify-center px-10 mt-10">
-            <h1 class="text-blue-500 text-3xl">¿Eres reclutador?</h1>
+            <h1 class="text-green-500 text-3xl">¿Eres reclutador?</h1>
             <p class="text-xl mt-5 leading-7">Crea una cuenta totalmente gratis y comienza a publicar hasta 10 vacantes</p>
         </div>
     </div>
