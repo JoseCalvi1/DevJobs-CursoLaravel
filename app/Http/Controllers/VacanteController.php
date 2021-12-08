@@ -119,9 +119,12 @@ class VacanteController extends Controller
      * @param  \App\Models\Vacante  $vacante
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vacante $vacante)
+    public function destroy(Vacante $vacante, Request $request)
     {
-        //
+        // $this->authorize('delete', $vacante);
+        $vacante->delete();
+
+        return response()->json(['mensaje' => 'Se eliminó la vacante ' + $vacante->titulo]);
     }
 
     // Campos extras
@@ -146,6 +149,18 @@ class VacanteController extends Controller
 
             return response('Imagen Eliminada', 200);
         }
+    }
+
+    // Cambia el estado de una vacante
+    public function estado(Request $request, Vacante $vacante)
+    {
+        // Leer nuevo estado y asignarlo
+        $vacante->activa = $request->estado;
+
+        // Guardar en la BD
+        $vacante->save();
+
+        return response()->json(['respuesta' => 'Correcto']);
     }
 
 }
